@@ -8,6 +8,7 @@
 - رندر کردن قالب HTML فاکتور با Flask/Jinja2
 - خروجی گرفتن فاکتور به‌صورت فایل PDF با `pdfkit` (بر پایه‌ی `wkhtmltopdf`)
 - استفاده از تاریخ شمسی (`jdatetime`) برای مطابقت با فاکتورهای فارسی
+- تشخیص خودکار مسیر `wkhtmltopdf` — روی لینوکس/مک/ویندوز کار می‌کنه، دیگه به مسیر هاردکد ویندوزی وابسته نیست
 
 ## تکنولوژی‌ها
 
@@ -18,17 +19,23 @@
 ## راه‌اندازی محلی
 
 ```bash
-git clone https://github.com/AminRst/invoice-generator.git
-cd invoice-generator/Invoice
+git clone https://github.com/AminRst/Python_Projects.git
+cd Python_Projects/Invoice
 python -m venv venv && source venv/bin/activate
-pip install flask pdfkit jdatetime
-# نصب wkhtmltopdf روی سیستم (نه به‌عنوان فایل داخل ریپو!)
+pip install -r requirements.txt
+
+# نصب wkhtmltopdf (نه به‌عنوان فایل داخل ریپو):
+#   لینوکس (دبیان/اوبونتو): sudo apt install wkhtmltopdf
+#   مک: brew install wkhtmltopdf
+#   ویندوز: از wkhtmltopdf.org دانلود و نصب کن، یا مسیرش رو با متغیر
+#            محیطی WKHTMLTOPDF_PATH به برنامه معرفی کن
+
 python app.py
 ```
 
-## نکاتی که بهتره قبل از نمایش اصلاح بشه
+## کارهایی که برای حرفه‌ای‌سازی این ریپو انجام شد
 
-- [ ] فایل نصب‌کننده‌ی ویندوز `wkhtmltox-0.12.6-1.msvc2015-win64.exe` (باینری حجیم) از ریپو حذف بشه — این نوع فایل‌ها هرگز نباید داخل گیت کامیت بشن؛ کاربر باید خودش نصبش کنه یا لینکش توی README بیاد
-- [ ] مسیر `wkhtmltopdf` هاردکد شده برای ویندوز (`C:\Program Files\...`) — بهتره از متغیر محیطی یا تشخیص خودکار مسیر استفاده بشه تا روی لینوکس/مک هم کار کنه
-- [ ] اضافه کردن `requirements.txt`
-- [ ] حذف `templates/output.pdf` (فایل خروجی نمونه) از ریپو — این خروجی اجراست، نباید کامیت بشه
+- فایل نصب‌کننده‌ی ویندوز `wkhtmltox-...exe` (حدود ۲۷ مگابایت) و یک پوشه‌ی کامل `venv/` که قبلاً به‌اشتباه کامیت شده بودن، از ریپو و از تاریخچه‌ی گیت حذف شدن.
+- مسیر `wkhtmltopdf` که هاردکد و مخصوص ویندوز بود (`C:\Program Files\...`) با تابع `find_wkhtmltopdf()` جایگزین شد که به ترتیب متغیر محیطی، `PATH` سیستم و در نهایت مسیر پیش‌فرض ویندوز رو چک می‌کنه — یعنی الان روی هر سیستم‌عاملی کار می‌کنه.
+- فایل خروجی نمونه (`templates/output.pdf`) از ریپو حذف شد؛ این فایل نتیجه‌ی اجرای برنامه‌ست، نه بخشی از کد.
+- `requirements.txt` اضافه شد.

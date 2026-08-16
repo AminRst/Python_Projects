@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 venv/
 env/
+.venv/
 
 # Project-specific — never commit installers or generated output
 *.exe
