@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.py[cod]
+venv/
+env/
+
+# Project-specific — never commit installers or generated output
+*.exe
+Invoice/templates/output.pdf
+
+# IDE
+.idea/
+.vscode/
